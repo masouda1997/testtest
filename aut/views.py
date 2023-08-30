@@ -6,7 +6,11 @@ from django.contrib.auth import authenticate, login, logout
 
 
 # Create your views here.
-def registration(req):
+def home(req):
+    return render(req, "aut/home.html")
+
+
+def registration_user(req):
     if req.method == "POST":
         fname = req.POST.get("fname")
         lname = req.POST.get("lname")
@@ -32,7 +36,9 @@ def registration(req):
                 user.save()
                 return redirect("aut:login")
         else:
+            print("1️⃣")
             return redirect("aut:registration")
+    print("2️⃣")
     return render(req, "aut/registration.html")
 
 
@@ -47,8 +53,7 @@ def login_user(req):
         else:
             messages.error("credential is invalid")
             return redirect("aut:login")
-    else:
-        return render(req, "login.html")
+    return render(req, "aut/login.html")
 
 
 def logout_user(req):
