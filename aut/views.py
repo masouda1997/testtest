@@ -1,15 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from django.contrib.auth.models import User, auth
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+
 
 # Create your views here.
-
-
-def home(req):
-    return render(req, "/aut/home.html")
-
-
 def registration(req):
     if req.method == "POST":
         fname = req.POST.get("fname")
@@ -37,28 +33,24 @@ def registration(req):
                 return redirect("aut:login")
         else:
             return redirect("aut:registration")
-        return redirect("/")
-    else:
-        render(req, "aut/regitration.html")
+    return render(req, "aut/registration.html")
 
 
-def login(req):
+def login_user(req):
     if req.method == "POST":
         username = req.POST.get("username")
         password = req.POST.get("password")
-
-        user = auth.authentication(username=username, password=password)
-
+        user = authenticate(username=username, password=password)
         if user is not None:
-            auth.login(req, user)
+            login(req, user)
             return redirect("/")
         else:
-            messages.info("credential is invalid")
+            messages.error("credential is invalid")
             return redirect("aut:login")
     else:
-        return render(req, "aut/login.html")
+        return render(req, "login.html")
 
 
-def logout(req):
-    auth.logout(req)
+def logout_user(req):
+    logout(req)
     return redirect("/")
