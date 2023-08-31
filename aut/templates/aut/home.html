@@ -5,18 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>home</title>
     </head>
-    {% comment %}
-    <body>
-        {% if user.is_authenticated %} hello,{{user.fname}}
-        <a href="{%url'aut:logout_user'%}">logout </a> &nbsp; {% else %}
-        <a href="{%url'aut:login_user'%}">login </a> &nbsp;
-        <a href="{%url'aut:registration'%}">signup </a> &nbsp; {% endif %} login
-        &nbsp; sinup &nbsp;
-    </body>
-    {% endcomment %}
 
     <body>
-        {% if user.is_authenticated %} hello, {{ user.fname }}
+        {% if user.is_authenticated %} hello, {{ user.first_name }}
         <a href="{% url 'aut:logout' %}">logout</a> &nbsp; {% else %}
         <a href="{% url 'aut:login' %}">login</a> &nbsp;
         <a href="{% url 'aut:registration' %}">signup</a> &nbsp; {% endif %}

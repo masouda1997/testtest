@@ -31,8 +31,10 @@ def registration_user(req):
                     username=username,
                     email=email,
                     password=password1,
+                    first_name = fname,
+                    last_name = lname,
                 )
-                user.fname=fname
+                # user.fname=fname
                 user.lname=lname
                 user.save()
                 print("🟢")
@@ -53,7 +55,7 @@ def login_user(req):
         print(user)
         if user is not None:
             login(req, user)
-            return redirect("./app/")
+            return redirect("http://127.0.0.1:8000/app/")
         else:
             print("1️⃣")
             messages.error(req , "credential is invalid")
