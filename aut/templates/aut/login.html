@@ -7,7 +7,8 @@
     </head>
 
     <body>
-        <form action="login" method="post">
+        <form action="" method="post">
+            {% csrf_token %}
             <input
                 name="username"
                 placeholder="username"
@@ -23,7 +24,7 @@
             <input type="submit" />
         </form>
         <div>
-            {% for messege in messages %}
+            {% for message in messages %}
             <h3>{{message}}</h3>
             {% endfor %}
         </div>

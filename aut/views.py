@@ -19,21 +19,23 @@ def registration_user(req):
         password1 = req.POST.get("password1")
         password2 = req.POST.get("password2")
         if password1 == password2:
-            if User.objects.filter(username=username).exists():
+            if User.objects.filter(username = username).exists():
                 messages.info(req, "username taken")
                 return redirect("aut:registration")
-            elif User.objects.filter(email == email).exists():
-                messages.info(req, "email teken")
+            elif User.objects.filter(email = email).exists():
+                messages.info(req, "email taken")
                 return redirect("aut:registration")
             else:
+                print("🔴🔴")
                 user = User.objects.create_user(
-                    fname=fname,
-                    lname=lname,
                     username=username,
                     email=email,
                     password=password1,
                 )
+                user.fname=fname
+                user.lname=lname
                 user.save()
+                print("🟢")
                 return redirect("aut:login")
         else:
             print("1️⃣")
@@ -46,15 +48,19 @@ def login_user(req):
     if req.method == "POST":
         username = req.POST.get("username")
         password = req.POST.get("password")
-        user = authenticate(username=username, password=password)
+        print(username,password)
+        user = authenticate(req ,username=username, password=password)
+        print(user)
         if user is not None:
             login(req, user)
-            return redirect("/")
+            return redirect("./app/")
         else:
-            messages.error("credential is invalid")
+            print("1️⃣")
+            messages.error(req , "credential is invalid")
             return redirect("aut:login")
+    print("2️⃣")
     return render(req, "aut/login.html")
-
+            
 
 def logout_user(req):
     logout(req)

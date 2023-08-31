@@ -6,16 +6,16 @@
         <title>registration</title>
     </head>
     <body>
-        <form action="registration" method="POST">
+        <form action="" method="POST">
             {% csrf_token %}
             <input
-                name="first name"
+                name="fname"
                 placeholder="first name"
                 required
                 type="text"
             /><br />
             <input
-                name="last name"
+                name="lname"
                 placeholder="last name"
                 required
                 type="text"
@@ -33,20 +33,20 @@
                 type="email"
             /><br />
             <input
-                name="password"
+                name="password1"
                 placeholder="password"
                 required
                 type="password"
             /><br />
             <input
-                name="password"
+                name="password2"
                 placeholder=" confirm password"
                 type="password"
             /><br />
             <input type="submit" />
         </form>
         <div>
-            {% for messege in messages %}
+            {% for message in messages %}
             <h3>{{message}}</h3>
             {% endfor %}
         </div>
